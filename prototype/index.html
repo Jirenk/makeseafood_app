@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海鲜美食小程序 - 原型设计</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .prototype-frame {
+            width: 390px;
+            height: 844px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 12px solid #111;
+            background: #111;
+        }
+        .frame-container {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .frame-label {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-center mb-8">海鲜美食小程序原型设计</h1>
+        
+        <div class="flex flex-wrap justify-center gap-10">
+            <!-- 首页原型 -->
+            <div class="frame-container">
+                <div class="frame-label">首页</div>
+                <iframe src="home.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 当季推荐页面 -->
+            <div class="frame-container">
+                <div class="frame-label">当季推荐</div>
+                <iframe src="recommended.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 海鲜食谱列表页面 -->
+            <div class="frame-container">
+                <div class="frame-label">海鲜食谱列表</div>
+                <iframe src="seafood-recipes.html?id=duobaoyu" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 识图做饭页面 -->
+            <div class="frame-container">
+                <div class="frame-label">识图做饭</div>
+                <iframe src="recognize.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 食谱详情页面 -->
+            <div class="frame-container">
+                <div class="frame-label">食谱详情</div>
+                <iframe src="recipe-detail.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,80 @@
+<!--recommended.wxml-->
+<navigation-bar title="当季推荐" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+<!-- 标题区域 -->
+<view class="title-area">
+  <view class="title">当季海鲜推荐</view>
+  <view class="subtitle">探索本季最新鲜的海鲜食材和美味食谱</view>
+</view>
+
+<!-- 过滤和排序 -->
+<view class="filter-bar">
+  <view class="filter-buttons">
+    <view class="filter-button filter-active">
+      <text>全部</text>
+      <view class="down-icon">▼</view>
+    </view>
+    <view class="filter-button">鱼类</view>
+    <view class="filter-button">贝类</view>
+  </view>
+  <view class="season-selector">
+    <text class="season-label">季节：</text>
+    <picker bindchange="onSeasonChange" value="{{seasonIndex}}" range="{{seasons}}">
+      <view class="season-picker">
+        <text>{{seasons[seasonIndex]}}</text>
+      </view>
+    </picker>
+  </view>
+</view>
+
+<!-- 海鲜列表 -->
+<scroll-view scroll-y class="seafood-list">
+  <view class="seafood-item" wx:for="{{seafoodItems}}" wx:key="id">
+    <view class="seafood-header">
+      <image src="{{item.image}}" mode="aspectCover" class="seafood-image"></image>
+      <view class="seafood-info">
+        <view class="seafood-title-row">
+          <text class="seafood-name">{{item.name}}</text>
+          <view class="seafood-tag">{{item.seasonTag}}</view>
+        </view>
+        <text class="seafood-desc">{{item.description}}</text>
+        <view class="seafood-season">
+          <text class="season-text">最佳季节：{{item.bestSeason}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="seafood-content">
+      <text class="seafood-detail">{{item.detail}}</text>
+      <button class="recipe-button" bindtap="onRecipeTap" data-id="{{item.id}}">
+        <text>查看{{item.name}}食谱</text>
+        <view class="arrow-icon">→</view>
+      </button>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 底部导航栏 -->
+<view class="tabbar">
+  <view class="tab-item" bindtap="onTabTap" data-index="0">
+    <view class="tab-icon home-icon">🏠</view>
+    <text class="tab-text">首页</text>
+  </view>
+  <view class="tab-item tab-active" bindtap="onTabTap" data-index="1">
+    <view class="tab-icon compass-icon">🧭</view>
+    <text class="tab-text">发现</text>
+  </view>
+  <view class="tab-item tab-center" bindtap="onTabTap" data-index="2">
+    <view class="tab-center-button">
+      <view class="camera-icon">📷</view>
+    </view>
+    <text class="tab-text tab-text-primary">识图</text>
+  </view>
+  <view class="tab-item" bindtap="onTabTap" data-index="3">
+    <view class="tab-icon book-icon">📖</view>
+    <text class="tab-text">菜谱</text>
+  </view>
+  <view class="tab-item" bindtap="onTabTap" data-index="4">
+    <view class="tab-icon user-icon">👤</view>
+    <text class="tab-text">我的</text>
+  </view>
+</view> 

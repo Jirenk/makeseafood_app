@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海鲜食谱 - 海鲜美食</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .status-bar {
+            height: 44px;
+        }
+        .difficulty-easy {
+            background-color: #10B981;
+        }
+        .difficulty-medium {
+            background-color: #F59E0B;
+        }
+        .difficulty-hard {
+            background-color: #EF4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- 微信小程序状态栏 -->
+    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
+        <div class="text-sm font-semibold">多宝鱼食谱</div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal text-gray-600"></i>
+            <i class="fas fa-wifi text-gray-600"></i>
+            <i class="fas fa-battery-three-quarters text-gray-600"></i>
+        </div>
+    </div>
+
+    <!-- 头部 -->
+    <div class="relative">
+        <div class="h-48 bg-gray-300">
+            <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="w-full h-full object-cover" alt="多宝鱼">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
+        </div>
+        <div class="absolute top-0 left-0 right-0 p-4">
+            <div class="flex items-center text-white">
+                <button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/30 mr-3" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="text-lg font-semibold">多宝鱼食谱</h1>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+            <div class="text-white">
+                <h2 class="text-xl font-bold">多宝鱼</h2>
+                <p class="text-sm text-gray-200">春季时令海鲜，肉质鲜嫩，富含蛋白质</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 筛选和排序 -->
+    <div class="bg-white p-3 border-b border-gray-200">
+        <!-- 菜系过滤 -->
+        <div class="mb-3 overflow-x-auto pb-2">
+            <div class="flex space-x-2 min-w-max">
+                <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded-full">全部</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">粤菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">鲁菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">川菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">浙菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">闽菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">湘菜</button>
+                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">苏菜</button>
+            </div>
+        </div>
+        
+        <!-- 排序选项 -->
+        <div class="flex justify-between items-center">
+            <div class="text-sm text-gray-600">找到 28 种做法</div>
+            <div>
+                <select class="text-sm py-1 px-2 border rounded-lg">
+                    <option value="default">默认排序</option>
+                    <option value="simple">简单优先</option>
+                    <option value="difficulty">难度递增</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 食谱列表 -->
+    <div class="flex-1 overflow-auto">
+        <div class="divide-y divide-gray-100">
+            <!-- 食谱1 -->
+            <a href="recipe-detail.html" class="block">
+                <div class="flex p-4 bg-white">
+                    <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="清蒸多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">清蒸多宝鱼</h3>
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">保留原汁原味，肉质鲜嫩</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
+                                <span class="text-xs text-gray-500">粤菜</span>
+                            </div>
+                            <span class="text-xs text-gray-500">30分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 食谱2 -->
+            <a href="recipe-detail.html" class="block">
+                <div class="flex p-4 bg-white">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="红烧多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">红烧多宝鱼</h3>
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">4.6</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">色香味俱全，鲜香浓郁</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                <span class="text-xs text-gray-500">鲁菜</span>
+                            </div>
+                            <span class="text-xs text-gray-500">45分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 食谱3 -->
+            <a href="recipe-detail.html" class="block">
+                <div class="flex p-4 bg-white">
+                    <img src="https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="葱油多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">葱油多宝鱼</h3>
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">葱香浓郁，鱼肉鲜嫩</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
+                                <span class="text-xs text-gray-500">浙菜</span>
+                            </div>
+                            <span class="text-xs text-gray-500">25分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 食谱4 -->
+            <a href="recipe-detail.html" class="block">
+                <div class="flex p-4 bg-white">
+                    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="酸菜多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">酸菜多宝鱼</h3>
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">4.2</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">酸辣开胃，鱼汤鲜美</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                <span class="text-xs text-gray-500">川菜</span>
+                            </div>
+                            <span class="text-xs text-gray-500">40分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 食谱5 -->
+            <a href="recipe-detail.html" class="block">
+                <div class="flex p-4 bg-white">
+                    <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="椒盐多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">椒盐多宝鱼</h3>
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">3.7</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">外脆里嫩，香气四溢</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-hard rounded-full mr-2">复杂</span>
+                                <span class="text-xs text-gray-500">粤菜</span>
+                            </div>
+                            <span class="text-xs text-gray-500">50分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
+        <a href="home.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">首页</span>
+        </a>
+        <a href="recommended.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-compass text-xl"></i>
+            <span class="text-xs mt-1">发现</span>
+        </a>
+        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
+            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                <i class="fas fa-camera text-white text-2xl"></i>
+            </a>
+            <span class="text-xs mt-1 text-blue-600">识图</span>
+        </div>
+        <a href="#" class="flex flex-col items-center text-blue-500 w-16">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">菜谱</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-user text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </div>
+
+    <script>
+        // 简单的URL参数解析，用于动态显示不同海鲜的食谱
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const seafoodId = urlParams.get('id');
+            
+            // 动态设置页面标题（实际应用中应根据id加载相应数据）
+            if (seafoodId) {
+                let seafoodName = '海鲜';
+                
+                if (seafoodId === 'duobaoyu') {
+                    seafoodName = '多宝鱼';
+                } else if (seafoodId === 'dazhaxie') {
+                    seafoodName = '大闸蟹';
+                } else if (seafoodId === 'luyu') {
+                    seafoodName = '鲈鱼';
+                } else if (seafoodId === 'shanbei') {
+                    seafoodName = '扇贝';
+                }
+                
+                document.querySelector('.status-bar .text-sm').textContent = seafoodName + '食谱';
+                document.querySelector('.text-lg.font-semibold').textContent = seafoodName + '食谱';
+                document.querySelector('.text-xl.font-bold').textContent = seafoodName;
+            }
+        });
+    </script>
+</body>
+</html> 

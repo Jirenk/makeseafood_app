@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>当季推荐 - 海鲜美食</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .status-bar {
+            height: 44px;
+        }
+        .difficulty-easy {
+            background-color: #10B981;
+        }
+        .difficulty-medium {
+            background-color: #F59E0B;
+        }
+        .difficulty-hard {
+            background-color: #EF4444;
+        }
+        .season-tag {
+            background-color: #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- 微信小程序状态栏 -->
+    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
+        <div class="text-sm font-semibold">当季推荐</div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal text-gray-600"></i>
+            <i class="fas fa-wifi text-gray-600"></i>
+            <i class="fas fa-battery-three-quarters text-gray-600"></i>
+        </div>
+    </div>
+
+    <!-- 标题区域 -->
+    <div class="bg-blue-500 text-white p-4">
+        <h1 class="text-xl font-bold mb-1">当季海鲜推荐</h1>
+        <p class="text-blue-100 text-sm">探索本季最新鲜的海鲜食材和美味食谱</p>
+    </div>
+
+    <!-- 过滤和排序 -->
+    <div class="bg-white p-3 flex justify-between items-center shadow-sm">
+        <div class="flex space-x-2">
+            <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded-full flex items-center">
+                <span>全部</span>
+                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+            </button>
+            <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">鱼类</button>
+            <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">贝类</button>
+        </div>
+        <div class="flex items-center text-sm text-gray-600">
+            <span>季节：</span>
+            <select class="bg-transparent border-none text-blue-500 font-medium focus:outline-none">
+                <option>当季</option>
+                <option>春季</option>
+                <option>夏季</option>
+                <option>秋季</option>
+                <option>冬季</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 海鲜列表 -->
+    <div class="flex-1 overflow-auto">
+        <div class="divide-y divide-gray-100">
+            <!-- 海鲜项目1 - 多宝鱼 -->
+            <div class="bg-white p-4">
+                <div class="flex mb-3">
+                    <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="多宝鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">多宝鱼</h3>
+                            <span class="inline-block px-2 py-0.5 text-xs text-white season-tag rounded-full">当季最佳</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">肉质肥美，鲜嫩清甜</p>
+                        <div class="mt-1 flex items-center">
+                            <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">最佳季节：春季3-5月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-2">
+                    <p class="text-sm text-gray-600 mb-3">
+                        多宝鱼因其肉质鲜嫩、营养丰富而备受青睐。春季3-5月是多宝鱼最肥美的季节，此时的多宝鱼脂肪含量适中，肉质最为鲜甜。
+                    </p>
+                    <a href="seafood-recipes.html?id=duobaoyu" class="flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium">
+                        <span>查看多宝鱼食谱</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 海鲜项目2 - 大闸蟹 -->
+            <div class="bg-white p-4">
+                <div class="flex mb-3">
+                    <img src="https://images.unsplash.com/photo-1590759668628-05b0fc34bb70?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="大闸蟹">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">大闸蟹</h3>
+                            <span class="inline-block px-2 py-0.5 text-xs text-white season-tag rounded-full">秋季珍品</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">蟹肉鲜美，蟹黄丰富</p>
+                        <div class="mt-1 flex items-center">
+                            <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">最佳季节：秋季9-11月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-2">
+                    <p class="text-sm text-gray-600 mb-3">
+                        秋季是品尝大闸蟹的最佳时节，此时的大闸蟹肉质饱满，蟹黄浓郁。俗话说"秋风起，蟹脚痒"，9-11月的大闸蟹肥美程度达到顶峰。
+                    </p>
+                    <a href="seafood-recipes.html?id=dazhaxie" class="flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium">
+                        <span>查看大闸蟹食谱</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 海鲜项目3 - 鲈鱼 -->
+            <div class="bg-white p-4">
+                <div class="flex mb-3">
+                    <img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="鲈鱼">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">鲈鱼</h3>
+                            <span class="inline-block px-2 py-0.5 text-xs text-white season-tag rounded-full">四季皆宜</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">肉质细嫩，刺少肉多</p>
+                        <div class="mt-1 flex items-center">
+                            <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">最佳季节：冬春季12-3月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-2">
+                    <p class="text-sm text-gray-600 mb-3">
+                        鲈鱼全年都适合食用，但冬春季节的鲈鱼肉质更加紧实鲜美。12月至次年3月的鲈鱼肥度适中，鲜甜度最高，是烹饪鲈鱼的最佳时机。
+                    </p>
+                    <a href="seafood-recipes.html?id=luyu" class="flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium">
+                        <span>查看鲈鱼食谱</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 海鲜项目4 - 扇贝 -->
+            <div class="bg-white p-4">
+                <div class="flex mb-3">
+                    <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="扇贝">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-semibold text-lg">扇贝</h3>
+                            <span class="inline-block px-2 py-0.5 text-xs text-white season-tag rounded-full">春夏鲜品</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">鲜甜可口，营养丰富</p>
+                        <div class="mt-1 flex items-center">
+                            <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">最佳季节：春夏季3-7月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-2">
+                    <p class="text-sm text-gray-600 mb-3">
+                        春末夏初是食用扇贝的最佳时节，这个时期的扇贝肉质饱满，鲜甜多汁。3-7月的扇贝含有丰富的蛋白质和微量元素，味道最为鲜美。
+                    </p>
+                    <a href="seafood-recipes.html?id=shanbei" class="flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium">
+                        <span>查看扇贝食谱</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
+        <a href="home.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">首页</span>
+        </a>
+        <a href="recommended.html" class="flex flex-col items-center text-blue-500 w-16">
+            <i class="fas fa-compass text-xl"></i>
+            <span class="text-xs mt-1">发现</span>
+        </a>
+        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
+            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                <i class="fas fa-camera text-white text-2xl"></i>
+            </a>
+            <span class="text-xs mt-1 text-blue-600">识图</span>
+        </div>
+        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">菜谱</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-user text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </div>
+</body>
+</html> 

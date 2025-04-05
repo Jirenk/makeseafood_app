@@ -1,0 +1,119 @@
+<!--index.wxml-->
+<navigation-bar title="海鲜美食" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+
+<!-- 主内容区域 -->
+<view class="content-area">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <view class="search-icon">🔍</view>
+    <input class="search-input" placeholder="搜索海鲜、食谱" placeholder-class="search-placeholder" bindinput="onSearchInput" bindconfirm="onSearchConfirm" confirm-type="search" />
+  </view>
+
+  <!-- 今日推荐 -->
+  <scroll-view scroll-y class="recommend-container">
+    <view class="section-header">
+      <text class="section-title">今日推荐</text>
+      <view class="more-link" bindtap="onMoreTap">
+        <text>更多</text>
+        <view class="more-icon">▶</view>
+      </view>
+    </view>
+    
+    <!-- 使用flex布局替代grid实现2*4布局 -->
+    <view class="recipe-flex-container">
+      <view class="recipe-flex-row">
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[0].id}}">
+          <image src="{{recommendItems[0].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[0].name}}</text>
+            <text class="recipe-tag">{{recommendItems[0].cuisine}} · {{recommendItems[0].difficulty}}</text>
+          </view>
+        </view>
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[1].id}}">
+          <image src="{{recommendItems[1].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[1].name}}</text>
+            <text class="recipe-tag">{{recommendItems[1].cuisine}} · {{recommendItems[1].difficulty}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="recipe-flex-row">
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[2].id}}">
+          <image src="{{recommendItems[2].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[2].name}}</text>
+            <text class="recipe-tag">{{recommendItems[2].cuisine}} · {{recommendItems[2].difficulty}}</text>
+          </view>
+        </view>
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[3].id}}">
+          <image src="{{recommendItems[3].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[3].name}}</text>
+            <text class="recipe-tag">{{recommendItems[3].cuisine}} · {{recommendItems[3].difficulty}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="recipe-flex-row">
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[4].id}}">
+          <image src="{{recommendItems[4].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[4].name}}</text>
+            <text class="recipe-tag">{{recommendItems[4].cuisine}} · {{recommendItems[4].difficulty}}</text>
+          </view>
+        </view>
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[5].id}}">
+          <image src="{{recommendItems[5].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[5].name}}</text>
+            <text class="recipe-tag">{{recommendItems[5].cuisine}} · {{recommendItems[5].difficulty}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="recipe-flex-row">
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[6].id}}">
+          <image src="{{recommendItems[6].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[6].name}}</text>
+            <text class="recipe-tag">{{recommendItems[6].cuisine}} · {{recommendItems[6].difficulty}}</text>
+          </view>
+        </view>
+        <view class="recipe-item" bindtap="onRecipeTap" data-id="{{recommendItems[7].id}}">
+          <image src="{{recommendItems[7].image}}" mode="aspectCover" class="recipe-image"></image>
+          <view class="recipe-info">
+            <text class="recipe-name">{{recommendItems[7].name}}</text>
+            <text class="recipe-tag">{{recommendItems[7].cuisine}} · {{recommendItems[7].difficulty}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 底部导航栏 -->
+<view class="tabbar">
+  <view class="tab-item tab-active" bindtap="onTabTap" data-index="0">
+    <view class="emoji emoji-tab">🏠</view>
+    <text class="tab-text">首页</text>
+  </view>
+  <view class="tab-item" bindtap="onTabTap" data-index="1">
+    <view class="emoji emoji-tab">🧭</view>
+    <text class="tab-text">发现</text>
+  </view>
+  <view class="tab-item tab-center" bindtap="onTabTap" data-index="2">
+    <view class="tab-center-button">
+      <view class="emoji emoji-large">📷</view>
+    </view>
+    <text class="tab-text tab-text-primary">识图</text>
+  </view>
+  <view class="tab-item" bindtap="onTabTap" data-index="3">
+    <view class="emoji emoji-tab">📖</view>
+    <text class="tab-text">菜谱</text>
+  </view>
+  <view class="tab-item" bindtap="onTabTap" data-index="4">
+    <view class="emoji emoji-tab">👤</view>
+    <text class="tab-text">我的</text>
+  </view>
+</view>

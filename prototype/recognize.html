@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>识图做饭 - 海鲜美食</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+        }
+        .status-bar {
+            height: 44px;
+        }
+        .camera-area {
+            aspect-ratio: 3/4;
+        }
+        .camera-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        .camera-button::after {
+            content: '';
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background-color: white;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+        }
+        .difficulty-easy {
+            background-color: #10B981;
+        }
+        .difficulty-medium {
+            background-color: #F59E0B;
+        }
+        .content-area {
+            height: calc(100vh - 44px - 68px); /* 减去状态栏和更高的底部导航栏高度 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- 微信小程序状态栏 -->
+    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
+        <div class="text-sm font-semibold">识图做饭</div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal text-gray-600"></i>
+            <i class="fas fa-wifi text-gray-600"></i>
+            <i class="fas fa-battery-three-quarters text-gray-600"></i>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="content-area">
+        <!-- 相机区域 - 初始状态 -->
+        <div id="camera-view" class="relative flex-1 flex flex-col">
+            <div class="camera-area bg-gray-900 w-full flex flex-col items-center justify-center">
+                <div class="text-white text-center mb-6">
+                    <i class="fas fa-camera text-5xl mb-4 text-teal-400"></i>
+                    <p class="text-lg font-medium">拍摄或上传海鲜图片</p>
+                    <p class="text-sm text-gray-400 mt-2">我们将识别海鲜种类并提供烹饪建议</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <button class="flex flex-col items-center">
+                        <div class="w-14 h-14 rounded-full bg-teal-500 flex items-center justify-center mb-2">
+                            <i class="fas fa-image text-white text-xl"></i>
+                        </div>
+                        <span class="text-white text-xs">从相册选择</span>
+                    </button>
+                    <button class="flex flex-col items-center">
+                        <div class="w-14 h-14 rounded-full bg-teal-500 flex items-center justify-center mb-2">
+                            <i class="fas fa-camera text-white text-xl"></i>
+                        </div>
+                        <span class="text-white text-xs">拍照识别</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 最近识别记录 -->
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-semibold text-gray-700">最近识别</h3>
+                    <a href="#" class="text-blue-600 text-sm">查看全部</a>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=xianxia" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="鲜虾" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">鲜虾</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=baoyu" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="鲍鱼" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">鲍鱼</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=luyu" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="鲈鱼" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">鲈鱼</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=duobaoyu" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="多宝鱼" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">多宝鱼</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=shanbei" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="扇贝" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">扇贝</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=dazhaxie" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1590759668628-05b0fc34bb70?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="大闸蟹" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">大闸蟹</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=longxia" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="龙虾" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">龙虾</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="seafood-recipes.html?id=sanwenyu" class="block">
+                            <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                                <div class="h-16 bg-gray-200 relative">
+                                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="三文鱼" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-1 text-center">
+                                    <div class="text-xs font-medium">三文鱼</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 识别结果页面 - 默认隐藏，可以通过JavaScript切换显示 -->
+        <div id="result-view" class="hidden flex-1 flex flex-col">
+            <!-- 识别结果头部 -->
+            <div class="bg-teal-500 p-4 text-white">
+                <div class="flex items-center mb-3">
+                    <button class="mr-3"><i class="fas fa-arrow-left text-lg"></i></button>
+                    <h2 class="text-lg font-semibold">识别结果</h2>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-20 h-20 rounded-lg overflow-hidden mr-4">
+                        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="鲈鱼">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">鲜活鲈鱼</h3>
+                        <p class="text-teal-100 text-sm">识别精度：98%</p>
+                        <div class="mt-1 text-xs bg-white/20 rounded-full px-2 py-0.5 inline-block">
+                            淡水鱼类
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 食谱推荐 -->
+            <div class="flex-1 overflow-auto bg-gray-50 p-4">
+                <h3 class="font-semibold text-gray-700 mb-3">推荐食谱</h3>
+                <div class="space-y-3">
+                    <!-- 食谱1 -->
+                    <a href="recipe-detail.html" class="block bg-white rounded-lg overflow-hidden shadow-sm">
+                        <div class="flex">
+                            <div class="w-24 h-24">
+                                <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="清蒸鲈鱼">
+                            </div>
+                            <div class="p-3 flex-1">
+                                <h4 class="font-semibold">清蒸鲈鱼</h4>
+                                <div class="flex items-center mt-1">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
+                                    <span class="text-xs text-gray-500">粤菜</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">保留鲜美原味，肉质嫩滑</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- 食谱2 -->
+                    <a href="recipe-detail.html" class="block bg-white rounded-lg overflow-hidden shadow-sm">
+                        <div class="flex">
+                            <div class="w-24 h-24">
+                                <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="红烧鲈鱼">
+                            </div>
+                            <div class="p-3 flex-1">
+                                <h4 class="font-semibold">红烧鲈鱼</h4>
+                                <div class="flex items-center mt-1">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                    <span class="text-xs text-gray-500">鲁菜</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">色泽红亮，味道浓郁</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- 食谱3 -->
+                    <a href="recipe-detail.html" class="block bg-white rounded-lg overflow-hidden shadow-sm">
+                        <div class="flex">
+                            <div class="w-24 h-24">
+                                <img src="https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="鱼香鲈鱼">
+                            </div>
+                            <div class="p-3 flex-1">
+                                <h4 class="font-semibold">鱼香鲈鱼</h4>
+                                <div class="flex items-center mt-1">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                    <span class="text-xs text-gray-500">川菜</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">酸甜可口，开胃下饭</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
+        <a href="home.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">首页</span>
+        </a>
+        <a href="recommended.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-compass text-xl"></i>
+            <span class="text-xs mt-1">发现</span>
+        </a>
+        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
+            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                <i class="fas fa-camera text-white text-2xl"></i>
+            </a>
+            <span class="text-xs mt-1 text-blue-600">识图</span>
+        </div>
+        <a href="seafood-recipes.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">菜谱</span>
+        </a>
+        <a href="profile.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-user text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </div>
+
+    <!-- 添加简单的JavaScript来模拟切换视图 -->
+    <script>
+        // 这里通常会实现真实的拍照和识别功能
+        // 在原型设计中，我们仅添加点击事件来模拟界面切换
+        document.querySelectorAll('#camera-view button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('camera-view').classList.add('hidden');
+                document.getElementById('result-view').classList.remove('hidden');
+                document.getElementById('result-view').classList.add('flex');
+            });
+        });
+
+        document.querySelector('#result-view button').addEventListener('click', function() {
+            document.getElementById('result-view').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('flex');
+            document.getElementById('camera-view').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海鲜美食 - 首页</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+        }
+        .status-bar {
+            height: 44px;
+        }
+        .main-button {
+            transition: all 0.3s ease;
+        }
+        .main-button:active {
+            transform: scale(0.98);
+        }
+        .content-area {
+            height: calc(100vh - 44px - 68px); /* 减去状态栏和更高的底部导航栏高度 */
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- 微信小程序状态栏 -->
+    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
+        <div class="text-sm font-semibold">海鲜美食</div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal text-gray-600"></i>
+            <i class="fas fa-wifi text-gray-600"></i>
+            <i class="fas fa-battery-three-quarters text-gray-600"></i>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="content-area flex-1 p-4 flex flex-col">
+        <!-- 顶部搜索栏 -->
+        <div class="bg-gray-100 rounded-full flex items-center px-4 py-2 mb-4">
+            <i class="fas fa-search text-gray-400 mr-2"></i>
+            <span class="text-gray-400">搜索海鲜、食谱</span>
+        </div>
+
+        <!-- 今日推荐 -->
+        <div class="mb-4 flex-1 overflow-y-auto">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-lg">今日推荐</h2>
+                <a href="#" class="text-blue-500 text-sm">更多 <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸鲈鱼">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">清蒸鲈鱼</div>
+                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="红烧大虾">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">红烧大虾</div>
+                        <div class="text-xs text-gray-500">川菜 · 中等</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="葱姜蒸扇贝">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">葱姜蒸扇贝</div>
+                        <div class="text-xs text-gray-500">鲁菜 · 简单</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="椒盐基围虾">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">椒盐基围虾</div>
+                        <div class="text-xs text-gray-500">粤菜 · 中等</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸扇贝">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">清蒸扇贝</div>
+                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸大闸蟹">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">清蒸大闸蟹</div>
+                        <div class="text-xs text-gray-500">苏菜 · 中等</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="蒜蓉蒸虾">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">蒜蓉蒸虾</div>
+                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="糖醋鲈鱼">
+                    <div class="p-2">
+                        <div class="font-medium text-sm">糖醋鲈鱼</div>
+                        <div class="text-xs text-gray-500">浙菜 · 中等</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主功能按钮部分已移除 -->
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
+        <a href="home.html" class="flex flex-col items-center text-blue-500 w-16">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">首页</span>
+        </a>
+        <a href="recommended.html" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-compass text-xl"></i>
+            <span class="text-xs mt-1">发现</span>
+        </a>
+        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
+            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                <i class="fas fa-camera text-white text-2xl"></i>
+            </a>
+            <span class="text-xs mt-1 text-blue-600">识图</span>
+        </div>
+        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">菜谱</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
+            <i class="fas fa-user text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </div>
+</body>
+</html> 
