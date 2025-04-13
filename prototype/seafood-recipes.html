@@ -9,29 +9,95 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f7f7;
         }
+        
         .status-bar {
             height: 44px;
+            background-color: #ffffff;
         }
+        
+        .bottom-nav {
+            height: 50px;
+            background-color: #ffffff;
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-area {
+            height: calc(100vh - 44px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #07c160;
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background-color: #07c160;
+            border-radius: 3px;
+        }
+        
+        .recipe-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            margin: 8px;
+        }
+        
+        .recipe-card:active {
+            transform: scale(0.98);
+        }
+        
+        .filter-button {
+            transition: all 0.3s;
+        }
+        
+        .filter-button.active {
+            background-color: #07c160;
+            color: #ffffff;
+        }
+        
         .difficulty-easy {
-            background-color: #10B981;
+            background-color: #07c160;
         }
+        
         .difficulty-medium {
-            background-color: #F59E0B;
+            background-color: #ffa500;
         }
+        
         .difficulty-hard {
-            background-color: #EF4444;
+            background-color: #ff4d4f;
         }
     </style>
 </head>
-<body class="bg-gray-50 h-screen flex flex-col">
-    <!-- 微信小程序状态栏 -->
-    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar flex items-center justify-between px-4">
         <div class="text-sm font-semibold">多宝鱼食谱</div>
-        <div class="flex items-center space-x-2">
-            <i class="fas fa-signal text-gray-600"></i>
-            <i class="fas fa-wifi text-gray-600"></i>
-            <i class="fas fa-battery-three-quarters text-gray-600"></i>
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-black/10">
+                <i class="fas fa-ellipsis-h text-gray-600"></i>
+            </div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-black/10">
+                <i class="fas fa-minus text-gray-600"></i>
+            </div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-black/10">
+                <i class="fas fa-circle text-gray-600"></i>
+            </div>
         </div>
     </div>
 
@@ -58,21 +124,7 @@
     </div>
 
     <!-- 筛选和排序 -->
-    <div class="bg-white p-3 border-b border-gray-200">
-        <!-- 菜系过滤 -->
-        <div class="mb-3 overflow-x-auto pb-2">
-            <div class="flex space-x-2 min-w-max">
-                <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded-full">全部</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">粤菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">鲁菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">川菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">浙菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">闽菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">湘菜</button>
-                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">苏菜</button>
-            </div>
-        </div>
-        
+    <div class="bg-white p-3">
         <!-- 排序选项 -->
         <div class="flex justify-between items-center">
             <div class="text-sm text-gray-600">找到 28 种做法</div>
@@ -87,33 +139,35 @@
     </div>
 
     <!-- 食谱列表 -->
-    <div class="flex-1 overflow-auto">
+    <div class="content-area">
         <div class="divide-y divide-gray-100">
             <!-- 食谱1 -->
             <a href="recipe-detail.html" class="block">
-                <div class="flex p-4 bg-white">
-                    <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="清蒸多宝鱼">
-                    <div class="ml-4 flex-1">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-lg">清蒸多宝鱼</h3>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                <div class="recipe-card p-4">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="清蒸多宝鱼">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-lg">清蒸多宝鱼</h3>
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-gray-300 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-xs ml-1">4.8</span>
                                 </div>
-                                <span class="text-gray-500 text-xs ml-1">4.8</span>
                             </div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-1">保留原汁原味，肉质鲜嫩</p>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center">
-                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
-                                <span class="text-xs text-gray-500">粤菜</span>
+                            <p class="text-gray-500 text-sm mt-1">保留原汁原味，肉质鲜嫩</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
+                                    <span class="text-xs text-gray-500">粤菜</span>
+                                </div>
+                                <span class="text-xs text-gray-500">30分钟</span>
                             </div>
-                            <span class="text-xs text-gray-500">30分钟</span>
                         </div>
                     </div>
                 </div>
@@ -121,29 +175,31 @@
 
             <!-- 食谱2 -->
             <a href="recipe-detail.html" class="block">
-                <div class="flex p-4 bg-white">
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="红烧多宝鱼">
-                    <div class="ml-4 flex-1">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-lg">红烧多宝鱼</h3>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                <div class="recipe-card p-4">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="红烧多宝鱼">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-lg">红烧多宝鱼</h3>
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-xs ml-1">4.6</span>
                                 </div>
-                                <span class="text-gray-500 text-xs ml-1">4.6</span>
                             </div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-1">色香味俱全，鲜香浓郁</p>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center">
-                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
-                                <span class="text-xs text-gray-500">鲁菜</span>
+                            <p class="text-gray-500 text-sm mt-1">色香味俱全，鲜香浓郁</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                    <span class="text-xs text-gray-500">鲁菜</span>
+                                </div>
+                                <span class="text-xs text-gray-500">45分钟</span>
                             </div>
-                            <span class="text-xs text-gray-500">45分钟</span>
                         </div>
                     </div>
                 </div>
@@ -151,29 +207,31 @@
 
             <!-- 食谱3 -->
             <a href="recipe-detail.html" class="block">
-                <div class="flex p-4 bg-white">
-                    <img src="https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="葱油多宝鱼">
-                    <div class="ml-4 flex-1">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-lg">葱油多宝鱼</h3>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                <div class="recipe-card p-4">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1611599538835-b52a8c2af7fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="葱油多宝鱼">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-lg">葱油多宝鱼</h3>
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-gray-300 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-xs ml-1">4.5</span>
                                 </div>
-                                <span class="text-gray-500 text-xs ml-1">4.5</span>
                             </div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-1">葱香浓郁，鱼肉鲜嫩</p>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center">
-                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
-                                <span class="text-xs text-gray-500">浙菜</span>
+                            <p class="text-gray-500 text-sm mt-1">葱香浓郁，鱼肉鲜嫩</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-easy rounded-full mr-2">简单</span>
+                                    <span class="text-xs text-gray-500">浙菜</span>
+                                </div>
+                                <span class="text-xs text-gray-500">25分钟</span>
                             </div>
-                            <span class="text-xs text-gray-500">25分钟</span>
                         </div>
                     </div>
                 </div>
@@ -181,29 +239,31 @@
 
             <!-- 食谱4 -->
             <a href="recipe-detail.html" class="block">
-                <div class="flex p-4 bg-white">
-                    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="酸菜多宝鱼">
-                    <div class="ml-4 flex-1">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-lg">酸菜多宝鱼</h3>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                <div class="recipe-card p-4">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="酸菜多宝鱼">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-lg">酸菜多宝鱼</h3>
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-gray-300 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-xs ml-1">4.2</span>
                                 </div>
-                                <span class="text-gray-500 text-xs ml-1">4.2</span>
                             </div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-1">酸辣开胃，鱼汤鲜美</p>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center">
-                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
-                                <span class="text-xs text-gray-500">川菜</span>
+                            <p class="text-gray-500 text-sm mt-1">酸辣开胃，鱼汤鲜美</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-medium rounded-full mr-2">中等</span>
+                                    <span class="text-xs text-gray-500">川菜</span>
+                                </div>
+                                <span class="text-xs text-gray-500">40分钟</span>
                             </div>
-                            <span class="text-xs text-gray-500">40分钟</span>
                         </div>
                     </div>
                 </div>
@@ -211,29 +271,31 @@
 
             <!-- 食谱5 -->
             <a href="recipe-detail.html" class="block">
-                <div class="flex p-4 bg-white">
-                    <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="椒盐多宝鱼">
-                    <div class="ml-4 flex-1">
-                        <div class="flex justify-between">
-                            <h3 class="font-semibold text-lg">椒盐多宝鱼</h3>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
-                                    <i class="fas fa-star text-gray-300 text-xs"></i>
+                <div class="recipe-card p-4">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-lg object-cover" alt="椒盐多宝鱼">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-lg">椒盐多宝鱼</h3>
+                                <div class="flex items-center">
+                                    <div class="flex">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-gray-300 text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-xs ml-1">3.7</span>
                                 </div>
-                                <span class="text-gray-500 text-xs ml-1">3.7</span>
                             </div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-1">外脆里嫩，香气四溢</p>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center">
-                                <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-hard rounded-full mr-2">复杂</span>
-                                <span class="text-xs text-gray-500">粤菜</span>
+                            <p class="text-gray-500 text-sm mt-1">外脆里嫩，香气四溢</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center">
+                                    <span class="inline-block px-2 py-0.5 text-xs text-white difficulty-hard rounded-full mr-2">复杂</span>
+                                    <span class="text-xs text-gray-500">粤菜</span>
+                                </div>
+                                <span class="text-xs text-gray-500">50分钟</span>
                             </div>
-                            <span class="text-xs text-gray-500">50分钟</span>
                         </div>
                     </div>
                 </div>
@@ -242,28 +304,22 @@
     </div>
 
     <!-- 底部导航栏 -->
-    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
-        <a href="home.html" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-home text-xl"></i>
-            <span class="text-xs mt-1">首页</span>
+    <div class="bottom-nav fixed bottom-0 w-full flex items-center justify-around px-2">
+        <a href="home.html" class="nav-item flex flex-col items-center justify-center py-1 w-1/4">
+            <i class="fas fa-home text-gray-400 text-xl"></i>
+            <span class="text-xs text-gray-400 mt-1">推荐</span>
         </a>
-        <a href="recommended.html" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-compass text-xl"></i>
-            <span class="text-xs mt-1">发现</span>
+        <a href="recommended.html" class="nav-item flex flex-col items-center justify-center py-1 w-1/4">
+            <i class="fas fa-compass text-gray-400 text-xl"></i>
+            <span class="text-xs text-gray-400 mt-1">发现</span>
         </a>
-        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
-            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
-                <i class="fas fa-camera text-white text-2xl"></i>
-            </a>
-            <span class="text-xs mt-1 text-blue-600">识图</span>
-        </div>
-        <a href="#" class="flex flex-col items-center text-blue-500 w-16">
-            <i class="fas fa-book text-xl"></i>
-            <span class="text-xs mt-1">菜谱</span>
+        <a href="seafood-recipes.html" class="nav-item active flex flex-col items-center justify-center py-1 w-1/4">
+            <i class="fas fa-book text-green-500 text-xl"></i>
+            <span class="text-xs text-green-500 mt-1">菜谱</span>
         </a>
-        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-user text-xl"></i>
-            <span class="text-xs mt-1">我的</span>
+        <a href="profile.html" class="nav-item flex flex-col items-center justify-center py-1 w-1/4">
+            <i class="fas fa-heart text-gray-400 text-xl"></i>
+            <span class="text-xs text-gray-400 mt-1">收藏</span>
         </a>
     </div>
 
@@ -291,6 +347,15 @@
                 document.querySelector('.text-lg.font-semibold').textContent = seafoodName + '食谱';
                 document.querySelector('.text-xl.font-bold').textContent = seafoodName;
             }
+            
+            // 添加筛选按钮点击效果
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
         });
     </script>
 </body>

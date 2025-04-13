@@ -2,142 +2,376 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>海鲜美食 - 首页</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
     <style>
+        /* 基础样式 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9fafb;
+            color: #1f2937;
         }
+        /* 自定义Tailwind CSS备用样式 */
+        .tw-backup {
+            display: none;
+        }
+        .no-tailwind .tw-backup {
+            display: block;
+        }
+        .no-tailwind .tw-original {
+            display: none;
+        }
+        /* 状态栏样式 */
         .status-bar {
             height: 44px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            background-color: white;
         }
+        /* 按钮样式 */
         .main-button {
             transition: all 0.3s ease;
         }
         .main-button:active {
             transform: scale(0.98);
         }
+        /* 主内容区域 */
         .content-area {
-            height: calc(100vh - 44px - 68px); /* 减去状态栏和更高的底部导航栏高度 */
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+            padding: 1rem;
+        }
+        /* 图片容器样式 */
+        .img-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 65%;
+            position: relative;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem 0.5rem 0 0;
             overflow: hidden;
         }
+        .img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 图片加载错误处理 */
+        .img-container::before {
+            content: '🐟';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            color: #9ca3af;
+            display: none;
+        }
+        .img-load-error .img-container::before {
+            display: block;
+        }
+        .img-load-error .img-container img {
+            opacity: 0;
+        }
+        /* 卡片样式 */
+        .recipe-card {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .recipe-info {
+            padding: 0.5rem;
+            flex-grow: 1;
+        }
+        .recipe-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .recipe-tag {
+            color: #6b7280;
+            font-size: 0.75rem;
+        }
+        /* 滚动容器 */
+        .scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        /* 搜索栏 */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem;
+        }
+        .search-icon {
+            color: #9ca3af;
+            margin-right: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .search-text {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        /* 底部导航 */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 68px;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            flex-shrink: 0;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 4rem;
+            color: #9ca3af;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: #3b82f6;
+        }
+        .nav-icon {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .nav-text {
+            font-size: 0.75rem;
+        }
+        /* 网格布局 */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        /* 修复移动端点击延迟 */
+        a, button {
+            touch-action: manipulation;
+        }
     </style>
+    <script>
+        // 检测Tailwind CSS是否加载成功
+        window.addEventListener('DOMContentLoaded', function() {
+            // 检查一个典型的Tailwind类是否正常工作
+            var testElement = document.createElement('div');
+            testElement.className = 'hidden';
+            document.body.appendChild(testElement);
+            
+            var style = window.getComputedStyle(testElement);
+            if (style.display !== 'none') {
+                document.body.classList.add('no-tailwind');
+            }
+            document.body.removeChild(testElement);
+            
+            // 图片加载错误处理
+            document.querySelectorAll('img').forEach(function(img) {
+                img.onerror = function() {
+                    this.parentNode.parentNode.classList.add('img-load-error');
+                };
+            });
+            
+            // 检查Font Awesome是否加载成功
+            setTimeout(function() {
+                var testIcon = document.createElement('i');
+                testIcon.className = 'fas fa-home';
+                document.body.appendChild(testIcon);
+                
+                var iconStyle = window.getComputedStyle(testIcon);
+                var isFontAwesomeLoaded = (iconStyle.fontFamily.indexOf('Font Awesome') !== -1);
+                
+                if (!isFontAwesomeLoaded) {
+                    document.querySelectorAll('.fa-home').forEach(el => el.textContent = '🏠');
+                    document.querySelectorAll('.fa-compass').forEach(el => el.textContent = '🧭');
+                    document.querySelectorAll('.fa-camera').forEach(el => el.textContent = '📷');
+                    document.querySelectorAll('.fa-book').forEach(el => el.textContent = '📖');
+                    document.querySelectorAll('.fa-user').forEach(el => el.textContent = '👤');
+                    document.querySelectorAll('.fa-chevron-right').forEach(el => el.textContent = '▶');
+                    document.querySelectorAll('.fa-search').forEach(el => el.textContent = '🔍');
+                }
+                
+                document.body.removeChild(testIcon);
+            }, 500);
+        });
+    </script>
 </head>
-<body class="bg-gray-50 h-screen flex flex-col">
+<body>
     <!-- 微信小程序状态栏 -->
-    <div class="status-bar bg-white flex items-center justify-between px-4 border-b border-gray-200">
-        <div class="text-sm font-semibold">海鲜美食</div>
-        <div class="flex items-center space-x-2">
+    <div class="status-bar">
+        <div class="tw-original text-sm font-semibold">海鲜美食</div>
+        <div class="tw-backup" style="font-size: 0.875rem; font-weight: 600;">海鲜美食</div>
+        
+        <div class="tw-original flex items-center space-x-2">
             <i class="fas fa-signal text-gray-600"></i>
             <i class="fas fa-wifi text-gray-600"></i>
             <i class="fas fa-battery-three-quarters text-gray-600"></i>
         </div>
+        <div class="tw-backup" style="display: flex; align-items: center; gap: 0.5rem; color: #4b5563;">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
     </div>
 
     <!-- 主内容区域 -->
-    <div class="content-area flex-1 p-4 flex flex-col">
-        <!-- 顶部搜索栏 -->
-        <div class="bg-gray-100 rounded-full flex items-center px-4 py-2 mb-4">
-            <i class="fas fa-search text-gray-400 mr-2"></i>
-            <span class="text-gray-400">搜索海鲜、食谱</span>
-        </div>
-
-        <!-- 今日推荐 -->
-        <div class="mb-4 flex-1 overflow-y-auto">
-            <div class="flex justify-between items-center mb-2">
-                <h2 class="font-bold text-lg">今日推荐</h2>
-                <a href="#" class="text-blue-500 text-sm">更多 <i class="fas fa-chevron-right text-xs"></i></a>
+    <div class="content-area">
+        <div class="tw-original p-4">
+            <!-- 顶部搜索栏 -->
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <span class="search-text">搜索海鲜、食谱</span>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸鲈鱼">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">清蒸鲈鱼</div>
-                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
-                    </div>
+
+            <!-- 今日推荐 -->
+            <div class="scroll-container">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="font-bold text-lg">今日推荐</h2>
+                    <a href="recommended.html" class="text-blue-500 text-sm flex items-center">
+                        <span>更多</span>
+                        <i class="fas fa-chevron-right text-xs ml-1"></i>
+                    </a>
                 </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="红烧大虾">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">红烧大虾</div>
-                        <div class="text-xs text-gray-500">川菜 · 中等</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="葱姜蒸扇贝">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">葱姜蒸扇贝</div>
-                        <div class="text-xs text-gray-500">鲁菜 · 简单</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="椒盐基围虾">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">椒盐基围虾</div>
-                        <div class="text-xs text-gray-500">粤菜 · 中等</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸扇贝">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">清蒸扇贝</div>
-                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="清蒸大闸蟹">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">清蒸大闸蟹</div>
-                        <div class="text-xs text-gray-500">苏菜 · 中等</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="蒜蓉蒸虾">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">蒜蓉蒸虾</div>
-                        <div class="text-xs text-gray-500">粤菜 · 简单</div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-24 object-cover" alt="糖醋鲈鱼">
-                    <div class="p-2">
-                        <div class="font-medium text-sm">糖醋鲈鱼</div>
-                        <div class="text-xs text-gray-500">浙菜 · 中等</div>
-                    </div>
+                
+                <div class="recipe-grid">
+                    <!-- 菜谱1 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="清蒸鲈鱼" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">清蒸鲈鱼</div>
+                            <div class="recipe-tag">简单</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱2 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="红烧大虾" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">红烧大虾</div>
+                            <div class="recipe-tag">中等</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱3 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="葱姜蒸扇贝" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">葱姜蒸扇贝</div>
+                            <div class="recipe-tag">简单</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱4 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="椒盐基围虾" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">椒盐基围虾</div>
+                            <div class="recipe-tag">中等</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱5 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="清蒸扇贝" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">清蒸扇贝</div>
+                            <div class="recipe-tag">简单</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱6 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="清蒸大闸蟹" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">清蒸大闸蟹</div>
+                            <div class="recipe-tag">中等</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱7 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="蒜蓉蒸虾" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">蒜蓉蒸虾</div>
+                            <div class="recipe-tag">简单</div>
+                        </div>
+                    </a>
+                    
+                    <!-- 菜谱8 -->
+                    <a href="recipe-detail.html" class="recipe-card">
+                        <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="糖醋鲈鱼" loading="lazy">
+                        </div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">糖醋鲈鱼</div>
+                            <div class="recipe-tag">中等</div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-
-        <!-- 主功能按钮部分已移除 -->
     </div>
 
     <!-- 底部导航栏 -->
-    <div class="bg-white border-t border-gray-200 py-2 px-4 flex justify-around items-end h-16">
-        <a href="home.html" class="flex flex-col items-center text-blue-500 w-16">
-            <i class="fas fa-home text-xl"></i>
-            <span class="text-xs mt-1">首页</span>
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item active">
+            <i class="fas fa-home nav-icon"></i>
+            <span class="nav-text">推荐</span>
         </a>
-        <a href="recommended.html" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-compass text-xl"></i>
-            <span class="text-xs mt-1">发现</span>
+        <a href="recommended.html" class="nav-item">
+            <i class="fas fa-compass nav-icon"></i>
+            <span class="nav-text">发现</span>
         </a>
-        <div class="relative flex flex-col items-center w-20" style="margin-top: -30px;">
-            <a href="recognize.html" class="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
-                <i class="fas fa-camera text-white text-2xl"></i>
-            </a>
-            <span class="text-xs mt-1 text-blue-600">识图</span>
-        </div>
-        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-book text-xl"></i>
-            <span class="text-xs mt-1">菜谱</span>
+        <a href="seafood-recipes.html" class="nav-item">
+            <i class="fas fa-book nav-icon"></i>
+            <span class="nav-text">菜谱</span>
         </a>
-        <a href="#" class="flex flex-col items-center text-gray-400 w-16">
-            <i class="fas fa-user text-xl"></i>
-            <span class="text-xs mt-1">我的</span>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-heart nav-icon"></i>
+            <span class="nav-text">收藏</span>
         </a>
     </div>
+
+    <script src="common.js"></script>
 </body>
 </html> 

@@ -2,13 +2,18 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>海鲜美食小程序 - 原型设计</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
     <style>
         body {
             background-color: #f5f5f5;
+            min-height: 100vh;
+            padding: 2rem 0;
+            overflow-y: auto;
+            height: auto;
         }
         .prototype-frame {
             width: 390px;
@@ -34,10 +39,54 @@
             border-radius: 20px;
             font-weight: bold;
         }
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .prototype-frame {
+                width: 320px;
+                height: 690px;
+                border-width: 8px;
+                border-radius: 30px;
+            }
+        }
+        /* 备用样式 */
+        .container-backup {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .title-backup {
+            font-size: 1.875rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .frames-container-backup {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+        }
     </style>
+    <script>
+        // 检测外部资源是否加载成功
+        window.addEventListener('DOMContentLoaded', function() {
+            // 检查Tailwind是否加载成功
+            var testElement = document.createElement('div');
+            testElement.className = 'hidden';
+            document.body.appendChild(testElement);
+            
+            var style = window.getComputedStyle(testElement);
+            if (style.display !== 'none') {
+                document.body.classList.add('no-tailwind');
+            }
+            document.body.removeChild(testElement);
+        });
+    </script>
 </head>
-<body class="min-h-screen bg-gray-100 py-12">
-    <div class="container mx-auto px-4">
+<body>
+    <div class="tw-original container mx-auto px-4">
         <h1 class="text-3xl font-bold text-center mb-8">海鲜美食小程序原型设计</h1>
         
         <div class="flex flex-wrap justify-center gap-10">
@@ -59,16 +108,52 @@
                 <iframe src="seafood-recipes.html?id=duobaoyu" class="prototype-frame" frameborder="0"></iframe>
             </div>
             
-            <!-- 识图做饭页面 -->
+            <!-- 食谱详情页面 -->
             <div class="frame-container">
-                <div class="frame-label">识图做饭</div>
-                <iframe src="recognize.html" class="prototype-frame" frameborder="0"></iframe>
+                <div class="frame-label">食谱详情</div>
+                <iframe src="recipe-detail.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 个人中心页面 -->
+            <div class="frame-container">
+                <div class="frame-label">个人中心</div>
+                <iframe src="profile.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tw-backup container-backup">
+        <h1 class="title-backup">海鲜美食小程序原型设计</h1>
+        
+        <div class="frames-container-backup">
+            <!-- 首页原型 -->
+            <div class="frame-container">
+                <div class="frame-label">首页</div>
+                <iframe src="home.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 当季推荐页面 -->
+            <div class="frame-container">
+                <div class="frame-label">当季推荐</div>
+                <iframe src="recommended.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 海鲜食谱列表页面 -->
+            <div class="frame-container">
+                <div class="frame-label">海鲜食谱列表</div>
+                <iframe src="seafood-recipes.html?id=duobaoyu" class="prototype-frame" frameborder="0"></iframe>
             </div>
             
             <!-- 食谱详情页面 -->
             <div class="frame-container">
                 <div class="frame-label">食谱详情</div>
                 <iframe src="recipe-detail.html" class="prototype-frame" frameborder="0"></iframe>
+            </div>
+            
+            <!-- 个人中心页面 -->
+            <div class="frame-container">
+                <div class="frame-label">个人中心</div>
+                <iframe src="profile.html" class="prototype-frame" frameborder="0"></iframe>
             </div>
         </div>
     </div>
